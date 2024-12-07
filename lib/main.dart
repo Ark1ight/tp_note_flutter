@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           '/': (context) => const SplashScreen(),
-          '/home': (context) => const HomePage(),
+          '/home': (context) => const HomePageScreen(),
         },
         onGenerateRoute: (routeSettings){
           Widget screen = Container(color: Colors.pink);
