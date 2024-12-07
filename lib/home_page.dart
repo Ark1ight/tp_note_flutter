@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
               },
               child: const Text('Go to Test Page'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/postDetail');

@@ -34,13 +34,13 @@ class MyApp extends StatelessWidget {
           switch(routeSettings.name){
             case '/test':
               screen = Container(color: Colors.blue, child: const Center(child: Text('Test Page')));
-            case 'postDetail':
+            case '/postDetail':
               /*
               if(argument is Post){
                 screen = PostDetailScreen(post: argument);
               }
               */
-              screen = Container(color: Colors.green, child: const Center(child: Text('Post Detail Page')));
+              screen = Container(color: Colors.red, child: const Center(child: Text('Post Detail Page')));
               break;
           }
           return MaterialPageRoute(builder: (context) => screen);
