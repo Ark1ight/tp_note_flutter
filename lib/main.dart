@@ -1,3 +1,4 @@
+import 'package:crown/models/post.dart';
 import 'package:crown/shared/services/local_posts_data_source/fake_local_posts_data_source.dart';
 import 'package:crown/shared/services/posts_data_source/posts_fake_data_source.dart';
 import 'package:crown/shared/services/posts_repository/posts_repository.dart';
@@ -31,8 +32,15 @@ class MyApp extends StatelessWidget {
           Widget screen = Container(color: Colors.pink);
           final argument = routeSettings.arguments;
           switch(routeSettings.name){
-            case '/second':
-              screen = Container(color: Colors.blue);
+            case '/test':
+              screen = Container(color: Colors.blue, child: const Center(child: Text('Test Page')));
+            case 'postDetail':
+              /*
+              if(argument is Post){
+                screen = PostDetailScreen(post: argument);
+              }
+              */
+              screen = Container(color: Colors.green, child: const Center(child: Text('Post Detail Page')));
               break;
           }
           return MaterialPageRoute(builder: (context) => screen);
