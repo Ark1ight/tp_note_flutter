@@ -11,7 +11,7 @@ class PostsRepository {
     required this.localPostsDataSource,
   });
 
-  Future<List<Post>> getPosts() async {
+  Future<List<Post>> getAllPosts() async {
     try {
       final posts = await remoteDataSource.getAllPosts();
       localPostsDataSource.savePosts(posts);
