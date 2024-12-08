@@ -1,12 +1,12 @@
-import 'package:crown/shared/blocs/posts_bloc/posts_bloc.dart';
-import 'package:crown/shared/services/local_posts_data_source/fake_local_posts_data_source.dart';
-import 'package:crown/shared/services/posts_data_source/posts_fake_data_source.dart';
-import 'package:crown/shared/services/posts_repository/posts_repository.dart';
-import 'package:crown/splash_screen.dart';
+import 'package:milky_way/shared/blocs/posts_bloc/posts_bloc.dart';
+import 'package:milky_way/shared/services/local_posts_data_source/fake_local_posts_data_source.dart';
+import 'package:milky_way/shared/services/posts_data_source/posts_fake_data_source.dart';
+import 'package:milky_way/shared/services/posts_repository/posts_repository.dart';
+import 'package:milky_way/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'home_page.dart';
+import 'home_page_screen/home_page.dart';
 
 void main() {
   runApp(const MyApp());

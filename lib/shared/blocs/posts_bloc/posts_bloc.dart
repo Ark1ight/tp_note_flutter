@@ -1,5 +1,5 @@
-import 'package:crown/app_exception.dart';
-import 'package:crown/shared/services/posts_repository/posts_repository.dart';
+import 'package:milky_way/app_exception.dart';
+import 'package:milky_way/shared/services/posts_repository/posts_repository.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../models/post.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
