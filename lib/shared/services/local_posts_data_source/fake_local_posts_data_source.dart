@@ -2,6 +2,7 @@
 import 'package:milky_way/shared/services/local_posts_data_source/local_posts_data_source.dart';
 
 import '../../../models/post.dart';
+import '../../../models/post_DTO.dart';
 
 class FakeLocalPostsDataSource extends LocalPostsDataSource {
 
@@ -16,7 +17,7 @@ class FakeLocalPostsDataSource extends LocalPostsDataSource {
   }
 
   @override
-  Future<void> addPost(Post post) async{
+  Future<void> addPost(PostDTO postDTO) async{
     return;
   }
 

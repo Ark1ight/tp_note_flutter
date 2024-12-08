@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:milky_way/screens/home_page_screen/home_page_screen.dart';
+import 'package:milky_way/shared/blocs/post_detail_bloc/post_detail_bloc.dart';
+
+import '../../../models/post.dart';
+import '../../../models/post_DTO.dart';
 
 class PostCreationForm extends StatefulWidget {
   const PostCreationForm({super.key});
@@ -25,7 +30,7 @@ class _PostCreationFormState extends State<PostCreationForm> {
 
       final title = _titleController.text;
       final description = _descriptionController.text;
-      // Bloc logic i need to add here
+      _addPost(title, description);
 
       HomePageScreen.navigateTo(context);
     }
@@ -68,5 +73,10 @@ class _PostCreationFormState extends State<PostCreationForm> {
         ),
       ),
     );
+  }
+
+  void _addPost(String title, String description) {
+    final postsBloc = BlocProvider.of<PostDetailBloc>(context);
+    postsBloc.add(AddPost(PostDTO(title: title, description: description)));
   }
 }

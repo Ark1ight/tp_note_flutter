@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../app_exception.dart';
 import '../../../models/post.dart';
+import '../../../models/post_DTO.dart';
 import '../../services/posts_repository/posts_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +17,7 @@ class PostDetailBloc extends Bloc<PostDetailEvent, PostDetailState> {
       emit(state.copyWith(status: PostDetailStatus.loading));
 
       try {
-        await postsRepository.addPost(event.post);
+        await postsRepository.addPost(event.postDTO);
         emit(state.copyWith(status: PostDetailStatus.success));
       } catch (error) {
         final appException = AppException.from(error);

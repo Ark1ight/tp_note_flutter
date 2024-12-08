@@ -1,5 +1,6 @@
 import 'package:milky_way/shared/services/posts_data_source/posts_data_source.dart';
 import '../../../models/post.dart';
+import '../../../models/post_DTO.dart';
 
 class PostsFakeDataSource extends PostsDataSource {
   final List<Post> _posts = [
@@ -22,8 +23,8 @@ class PostsFakeDataSource extends PostsDataSource {
   }
 
   @override
-  Future<void> addPost(Post post) async {
+  Future<void> addPost(PostDTO postDTO) async {
     await Future.delayed(const Duration(seconds: 1));
-    _posts.add(post);
+    _posts.add(Post(id: _posts.length + 1, title: postDTO.title, description: postDTO.description));
   }
 }

@@ -6,7 +6,7 @@ sealed class PostDetailEvent{
 }
 
 class AddPost extends PostDetailEvent{
-  final Post post;
+  final PostDTO postDTO;
 
-  const AddPost(this.post);
+  const AddPost(this.postDTO);
 }

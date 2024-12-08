@@ -21,7 +21,7 @@ class PostsRepository {
     }
   }
 
-  addPost(post) async {
+  Future<void> addPost(post) async {
     try{
       await remoteDataSource.addPost(post);
     } catch (error){

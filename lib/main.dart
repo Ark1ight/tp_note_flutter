@@ -1,5 +1,6 @@
 import 'package:milky_way/screens/post_creation_screen/post_creation_screen.dart';
 import 'package:milky_way/shared/blocs/posts_bloc/posts_bloc.dart';
+import 'package:milky_way/shared/blocs/post_detail_bloc/post_detail_bloc.dart';
 import 'package:milky_way/shared/services/local_posts_data_source/fake_local_posts_data_source.dart';
 import 'package:milky_way/shared/services/posts_data_source/posts_fake_data_source.dart';
 import 'package:milky_way/shared/services/posts_repository/posts_repository.dart';
@@ -23,10 +24,19 @@ class MyApp extends StatelessWidget {
         remoteDataSource: PostsFakeDataSource(),
         localPostsDataSource: FakeLocalPostsDataSource(),
       ),
-      child: BlocProvider(
-        create: (context) => PostsBloc(
-          postsRepository: RepositoryProvider.of<PostsRepository>(context),
-        ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => PostsBloc(
+              postsRepository: RepositoryProvider.of<PostsRepository>(context),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => PostDetailBloc(
+              postsRepository: RepositoryProvider.of<PostsRepository>(context),
+            ),
+          ),
+        ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           routes: {
