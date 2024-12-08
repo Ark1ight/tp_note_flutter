@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:milky_way/screens/home_page_screen/home_page_screen.dart';
 import 'package:milky_way/shared/blocs/post_detail_bloc/post_detail_bloc.dart';
 
-import '../../../models/post.dart';
 import '../../../models/post_DTO.dart';
 
 class PostCreationForm extends StatefulWidget {
