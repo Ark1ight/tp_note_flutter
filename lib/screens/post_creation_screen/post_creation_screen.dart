@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:milky_way/screens/post_creation_screen/widgets/post_creation_form.dart';
@@ -14,9 +13,9 @@ class PostCreationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Post atoz'),
+        title: Text('Create Post '),
       ),
-      body: PostCreationForm(context: context),
+      body: PostCreationForm(),
     );
   }
 

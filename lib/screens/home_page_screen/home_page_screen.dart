@@ -9,6 +9,9 @@ import '../../models/post.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
+  static Future<void> navigateTo(BuildContext context) {
+    return Navigator.pushNamed(context, '/home');
+  }
 
   @override
   State<HomePageScreen> createState() => _HomePageScreenState();
