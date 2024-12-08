@@ -1,17 +1,17 @@
-import 'package:milky_way/home_page_screen/widgets/post_list_item.dart';
+import 'package:milky_way/screens/home_page_screen/widgets/post_list_item.dart';
+import 'package:milky_way/screens/post_creation_screen/post_creation_screen.dart';
 import 'package:milky_way/shared/blocs/posts_bloc/posts_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../app_exception.dart';
-import '../models/post.dart';
+import '../../app_exception.dart';
+import '../../models/post.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
 
   @override
   State<HomePageScreen> createState() => _HomePageScreenState();
-
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
@@ -23,9 +23,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<PostsBloc,PostsState>(
-      listener: (context,state){
-        if(state.status == PostsStatus.error){
+    return BlocListener<PostsBloc, PostsState>(
+      listener: (context, state) {
+        if (state.status == PostsStatus.error) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text("error"),
@@ -33,19 +33,28 @@ class _HomePageScreenState extends State<HomePageScreen> {
           );
         }
       },
-      child: Scaffold(backgroundColor: const Color(0xFF12131C),
+      child: Scaffold(
+        backgroundColor: const Color(0xFF12131C),
         appBar: AppBar(
-          title: const Text('Home Page',style: TextStyle(color: Colors.white),),
+          title: const Text(
+            'Milky Way',
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: const Color(0xFF12131C),
         ),
-        body: BlocBuilder<PostsBloc,PostsState>(
-          builder: (context,state){
-            return switch(state.status){
+        body: BlocBuilder<PostsBloc, PostsState>(
+          builder: (context, state) {
+            return switch (state.status) {
               PostsStatus.initial || PostsStatus.loading => _buildLoading(context),
-              PostsStatus.success => _buildPosts(context,state.posts),
+              PostsStatus.success => _buildPosts(context, state.posts),
               PostsStatus.error => _buildError(context, state.exception),
             };
           },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _onCreatePostPressed,
+          backgroundColor: Colors.blue,
+          child: const Icon(Icons.add, color: Colors.white),
         ),
       ),
     );
@@ -54,11 +63,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
   void _getAllPosts() {
     final postsBloc = BlocProvider.of<PostsBloc>(context);
     postsBloc.add(const GetAllPosts(''));
-
   }
 
+  void _onCreatePostPressed() {
+    PostCreationScreen.navigateTo(context);
+  }
 
-  Widget _buildLoading(BuildContext context){
+  Widget _buildLoading(BuildContext context) {
     return const Center(
       child: CircularProgressIndicator(),
     );
@@ -78,7 +89,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
   }
 
-
   Widget _buildError(BuildContext context, AppException? exception) {
     if (exception == null) {
       return const Center(
@@ -89,6 +99,4 @@ class _HomePageScreenState extends State<HomePageScreen> {
       child: Text(exception.toString()),
     );
   }
-
-
 }

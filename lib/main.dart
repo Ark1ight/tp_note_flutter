@@ -1,3 +1,4 @@
+import 'package:milky_way/screens/post_creation_screen/post_creation_screen.dart';
 import 'package:milky_way/shared/blocs/posts_bloc/posts_bloc.dart';
 import 'package:milky_way/shared/services/local_posts_data_source/fake_local_posts_data_source.dart';
 import 'package:milky_way/shared/services/posts_data_source/posts_fake_data_source.dart';
@@ -6,7 +7,7 @@ import 'package:milky_way/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'home_page_screen/home_page.dart';
+import 'screens/home_page_screen/home_page_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           routes: {
             '/': (context) => const SplashScreen(),
             '/home': (context) => const HomePageScreen(),
+            '/postCreation': (context) => const PostCreationScreen(),
           },
           onGenerateRoute: (routeSettings) {
             Widget screen = Container(color: Colors.pink);
