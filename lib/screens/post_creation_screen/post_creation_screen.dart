@@ -13,9 +13,9 @@ class PostCreationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Post '),
+        title: const Text('Thoughts creation page'),
       ),
-      body: PostCreationForm(),
+      body: const PostCreationForm(),
     );
   }
 

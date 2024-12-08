@@ -20,4 +20,12 @@ class PostsRepository {
       return localPostsDataSource.getAllPosts();
     }
   }
+
+  addPost(post) async {
+    try{
+      await remoteDataSource.addPost(post);
+    } catch (error){
+      rethrow;
+    }
+  }
 }

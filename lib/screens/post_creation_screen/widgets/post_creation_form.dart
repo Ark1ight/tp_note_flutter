@@ -22,7 +22,7 @@ class _PostCreationFormState extends State<PostCreationForm> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      // Process the data
+
       final title = _titleController.text;
       final description = _descriptionController.text;
       // Bloc logic i need to add here
