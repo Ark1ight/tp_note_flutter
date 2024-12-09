@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
-
+import 'package:flutter/material.dart';
 import '../../models/post.dart';
+import 'widgets/modify_post_form.dart';
 
-class ModifyPostScreen extends StatelessWidget {
-
-  static Future<void> navigateTo(BuildContext context, Post post)  {
+class ModifyPostScreen extends StatefulWidget {
+  static Future<void> navigateTo(BuildContext context, Post post) {
     return Navigator.pushNamed(context, '/modify_post', arguments: post);
   }
 
@@ -14,13 +13,19 @@ class ModifyPostScreen extends StatelessWidget {
 
   @override
   _ModifyPostScreenState createState() => _ModifyPostScreenState();
+}
 
+class _ModifyPostScreenState extends State<ModifyPostScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Text('Modify Posteee');
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Modify Post'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ModifyPostForm(post: widget.post),
+      ),
+    );
   }
 }
-
-class _ModifyPostScreenState {
-}
-
