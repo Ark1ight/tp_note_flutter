@@ -16,6 +16,7 @@ class ModifyPostForm extends StatefulWidget {
 class _ModifyPostFormState extends State<ModifyPostForm> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
+  bool _buttonPressed = false;
 
   @override
   void initState() {
@@ -31,7 +32,10 @@ class _ModifyPostFormState extends State<ModifyPostForm> {
     super.dispose();
   }
 
-  void _updatePost(BuildContext context) {
+  Future<void> _updatePost(BuildContext context) async {
+    setState(() {
+      _buttonPressed = true;
+    });
     final postDetailBloc = context.read<PostDetailBloc>();
     final post = Post(
       id: widget.post.id,
@@ -39,50 +43,66 @@ class _ModifyPostFormState extends State<ModifyPostForm> {
       description: _descriptionController.text,
     );
     postDetailBloc.add(UpdatePost(post));
-
+    await Future.delayed(const Duration(seconds: 1));
     HomePageScreen.navigateTo(context);
-
   }
 
-  void _deletePost(BuildContext context) {
+  Future<void> _deletePost(BuildContext context) async {
+    setState(() {
+      _buttonPressed = true;
+    });
     final postDetailBloc = context.read<PostDetailBloc>();
     postDetailBloc.add(DeletePost(widget.post.id));
-
+    await Future.delayed(const Duration(seconds: 1));
     HomePageScreen.navigateTo(context);
-
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      child: Column(
-        children: [
-          TextFormField(
-            controller: _titleController,
-            decoration: const InputDecoration(labelText: 'Title'),
-          ),
-          TextFormField(
-            controller: _descriptionController,
-            decoration: const InputDecoration(labelText: 'Description'),
-          ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return BlocBuilder<PostDetailBloc, PostDetailState>(
+      builder: (context, state) {
+        return Form(
+          child: Column(
             children: [
-              ElevatedButton(
-                onPressed: () => _updatePost(context),
-                child: const Text('Save', style: TextStyle(color: Colors.black)),
+              TextFormField(
+                controller: _titleController,
+                decoration: const InputDecoration(labelText: 'Title'),
               ),
-              ElevatedButton(
-                onPressed: () => _deletePost(context),
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                child: const Text('Delete', style: TextStyle(color: Colors.black)),
+              TextFormField(
+                controller: _descriptionController,
+                decoration: const InputDecoration(labelText: 'Description'),
               ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => _updatePost(context),
+                    child: const Icon(Icons.save, color: Colors.black),
+                  ),
+                  ElevatedButton(
+                    onPressed: state.status == PostDetailStatus.loading ? null : () => _deletePost(context),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    child: const Icon(Icons.delete, color: Colors.black),
+                  ),
+                ],
+              ),
+              if (_buttonPressed)
+                switch (state.status) {
+                  PostDetailStatus.loading => const Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: CircularProgressIndicator(),
+                  ),
+                  PostDetailStatus.success => const Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Icon(Icons.check, color: Colors.green),
+                  ),
+                  _ => const SizedBox.shrink(),
+                },
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

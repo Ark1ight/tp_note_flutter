@@ -51,9 +51,6 @@ class MyApp extends StatelessWidget {
             Widget screen = Container(color: Colors.pink);
             final argument = routeSettings.arguments;
             switch (routeSettings.name) {
-              case '/test':
-                screen = Container(color: Colors.blue, child: const Center(child: Text('Test Page')));
-                break;
               case '/modify_post':
                 if (argument is Post) {
                   screen = ModifyPostScreen(post: argument);
