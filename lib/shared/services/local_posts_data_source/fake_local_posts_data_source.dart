@@ -21,6 +21,16 @@ class FakeLocalPostsDataSource extends LocalPostsDataSource {
     return;
   }
 
+  @override
+  Future<void> updatePost(post) async{
+    return;
+  }
+
+  @override
+  Future<void> deletePost(postId) async{
+    return;
+  }
+
 
 
 

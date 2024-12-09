@@ -27,4 +27,17 @@ class PostsFakeDataSource extends PostsDataSource {
     await Future.delayed(const Duration(seconds: 1));
     _posts.add(Post(id: _posts.length + 1, title: postDTO.title, description: postDTO.description));
   }
+
+  @override
+  Future<void> updatePost(post) async {
+    await Future.delayed(const Duration(seconds: 1));
+    final index = _posts.indexWhere((element) => element.id == post.id);
+    _posts[index] = post;
+  }
+
+  @override
+  Future<void> deletePost(postId) async {
+    await Future.delayed(const Duration(seconds: 1));
+    _posts.removeWhere((element) => element.id == postId);
+  }
 }

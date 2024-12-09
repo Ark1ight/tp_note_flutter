@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:milky_way/screens/home_page_screen/home_page_screen.dart';
 import '../../../models/post.dart';
+import '../../../shared/blocs/post_detail_bloc/post_detail_bloc.dart';
 
 class ModifyPostForm extends StatefulWidget {
   final Post post;
@@ -28,12 +31,26 @@ class _ModifyPostFormState extends State<ModifyPostForm> {
     super.dispose();
   }
 
-  void _savePost(BuildContext context) {
+  void _updatePost(BuildContext context) {
+    final postDetailBloc = context.read<PostDetailBloc>();
+    final post = Post(
+      id: widget.post.id,
+      title: _titleController.text,
+      description: _descriptionController.text,
+    );
+    postDetailBloc.add(UpdatePost(post));
+
+    HomePageScreen.navigateTo(context);
 
   }
 
-  void _deletePost() {
-    Navigator.pop(context);
+  void _deletePost(BuildContext context) {
+    final postDetailBloc = context.read<PostDetailBloc>();
+    postDetailBloc.add(DeletePost(widget.post.id));
+
+    HomePageScreen.navigateTo(context);
+
+
   }
 
   @override
@@ -54,11 +71,11 @@ class _ModifyPostFormState extends State<ModifyPostForm> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
-                onPressed: _savePost(context),
+                onPressed: () => _updatePost(context),
                 child: const Text('Save', style: TextStyle(color: Colors.black)),
               ),
               ElevatedButton(
-                onPressed: _deletePost,
+                onPressed: () => _deletePost(context),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                 child: const Text('Delete', style: TextStyle(color: Colors.black)),
               ),

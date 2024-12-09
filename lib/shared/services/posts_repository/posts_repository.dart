@@ -28,4 +28,21 @@ class PostsRepository {
       rethrow;
     }
   }
+
+  Future <void> updatePost(post) async {
+    try{
+      await remoteDataSource.updatePost(post);
+    } catch (error){
+      rethrow;
+    }
+  }
+
+  Future <void> deletePost(postId) async {
+    try{
+      await remoteDataSource.deletePost(postId);
+    } catch (error){
+      rethrow;
+    }
+  }
+
 }

@@ -10,3 +10,15 @@ class AddPost extends PostDetailEvent{
 
   const AddPost(this.postDTO);
 }
+
+class UpdatePost extends PostDetailEvent{
+  final Post post;
+
+  const UpdatePost(this.post);
+}
+
+class DeletePost extends PostDetailEvent{
+  final int postId;
+
+  const DeletePost(this.postId);
+}
