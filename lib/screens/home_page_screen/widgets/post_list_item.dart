@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:milky_way/screens/home_page_screen/widgets/modify_post.dart';
 
 import '../../../models/post.dart';
 
 class PostListItem extends StatelessWidget {
   final Post post;
 
-  PostListItem({required this.post});
+  const PostListItem({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,6 @@ class PostListItem extends StatelessWidget {
         decoration: BoxDecoration(
           color: const Color(0xFF31304D),
           borderRadius: BorderRadius.circular(15.0),
-
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -40,6 +40,8 @@ class PostListItem extends StatelessWidget {
                   color: Colors.grey,
                 ),
               ),
+              const SizedBox(height: 8.0),
+              ModifyPostItem(post: post),
             ],
           ),
         ),

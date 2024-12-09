@@ -1,3 +1,4 @@
+import 'package:milky_way/screens/modify_post_screen/modify_post_screen.dart';
 import 'package:milky_way/screens/post_creation_screen/post_creation_screen.dart';
 import 'package:milky_way/shared/blocs/posts_bloc/posts_bloc.dart';
 import 'package:milky_way/shared/blocs/post_detail_bloc/post_detail_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:milky_way/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'models/post.dart';
 import 'screens/home_page_screen/home_page_screen.dart';
 
 void main() {
@@ -43,6 +45,7 @@ class MyApp extends StatelessWidget {
             '/': (context) => const SplashScreen(),
             '/home': (context) => const HomePageScreen(),
             '/postCreation': (context) => const PostCreationScreen(),
+
           },
           onGenerateRoute: (routeSettings) {
             Widget screen = Container(color: Colors.pink);
@@ -51,13 +54,10 @@ class MyApp extends StatelessWidget {
               case '/test':
                 screen = Container(color: Colors.blue, child: const Center(child: Text('Test Page')));
                 break;
-              case '/postDetail':
-              /*
+              case '/modify_post':
                 if (argument is Post) {
-                  screen = PostDetailScreen(post: argument);
+                  screen = ModifyPostScreen(post: argument);
                 }
-                */
-                screen = Container(color: Colors.red, child: const Center(child: Text('Post Detail Page')));
                 break;
             }
             return MaterialPageRoute(builder: (context) => screen);

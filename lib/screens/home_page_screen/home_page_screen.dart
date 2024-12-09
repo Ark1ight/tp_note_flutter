@@ -56,8 +56,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: _onCreatePostPressed,
-          backgroundColor: Colors.blue,
-          child: const Icon(Icons.add, color: Colors.white),
+          backgroundColor: const Color(0xFF31304D),
+          child: const Icon(Icons.add_card, color: Colors.white),
         ),
       ),
     );
