@@ -7,7 +7,7 @@ import '../../../shared/blocs/post_detail_bloc/post_detail_bloc.dart';
 class ModifyPostForm extends StatefulWidget {
   final Post post;
 
-  ModifyPostForm({required this.post});
+  const ModifyPostForm({required this.post});
 
   @override
   _ModifyPostFormState createState() => _ModifyPostFormState();
@@ -23,6 +23,7 @@ class _ModifyPostFormState extends State<ModifyPostForm> {
     super.initState();
     _titleController = TextEditingController(text: widget.post.title);
     _descriptionController = TextEditingController(text: widget.post.description);
+    _buttonPressed = false;
   }
 
   @override
@@ -43,8 +44,6 @@ class _ModifyPostFormState extends State<ModifyPostForm> {
       description: _descriptionController.text,
     );
     postDetailBloc.add(UpdatePost(post));
-    await Future.delayed(const Duration(seconds: 1));
-    HomePageScreen.navigateTo(context);
   }
 
   Future<void> _deletePost(BuildContext context) async {
@@ -53,56 +52,61 @@ class _ModifyPostFormState extends State<ModifyPostForm> {
     });
     final postDetailBloc = context.read<PostDetailBloc>();
     postDetailBloc.add(DeletePost(widget.post.id));
-    await Future.delayed(const Duration(seconds: 1));
-    HomePageScreen.navigateTo(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PostDetailBloc, PostDetailState>(
-      builder: (context, state) {
-        return Form(
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _titleController,
-                decoration: const InputDecoration(labelText: 'Title'),
-              ),
-              TextFormField(
-                controller: _descriptionController,
-                decoration: const InputDecoration(labelText: 'Description'),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () => _updatePost(context),
-                    child: const Icon(Icons.save, color: Colors.black),
-                  ),
-                  ElevatedButton(
-                    onPressed: state.status == PostDetailStatus.loading ? null : () => _deletePost(context),
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    child: const Icon(Icons.delete, color: Colors.black),
-                  ),
-                ],
-              ),
-              if (_buttonPressed)
-                switch (state.status) {
-                  PostDetailStatus.loading => const Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: CircularProgressIndicator(),
-                  ),
-                  PostDetailStatus.success => const Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: Icon(Icons.check, color: Colors.green),
-                  ),
-                  _ => const SizedBox.shrink(),
-                },
-            ],
-          ),
-        );
+    return BlocListener<PostDetailBloc, PostDetailState>(
+      listener: (context, state) {
+        if (state.status == PostDetailStatus.success) {
+          HomePageScreen.navigateTo(context);
+        }
       },
+      child: BlocBuilder<PostDetailBloc, PostDetailState>(
+        builder: (context, state) {
+          return Form(
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _titleController,
+                  decoration: const InputDecoration(labelText: 'Title'),
+                ),
+                TextFormField(
+                  controller: _descriptionController,
+                  decoration: const InputDecoration(labelText: 'Description'),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => _updatePost(context),
+                      child: const Icon(Icons.save, color: Colors.black),
+                    ),
+                    ElevatedButton(
+                      onPressed: state.status == PostDetailStatus.loading ? null : () => _deletePost(context),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                      child: const Icon(Icons.delete, color: Colors.black),
+                    ),
+                  ],
+                ),
+                if (_buttonPressed)
+                  switch (state.status) {
+                    PostDetailStatus.loading => const Padding(
+                      padding: EdgeInsets.only(top: 20),
+                      child: CircularProgressIndicator(),
+                    ),
+                    PostDetailStatus.success => const Padding(
+                      padding: EdgeInsets.only(top: 20),
+                      child: Icon(Icons.check, color: Colors.green),
+                    ),
+                    _ => const SizedBox.shrink(),
+                  },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
