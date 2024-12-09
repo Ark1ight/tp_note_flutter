@@ -57,8 +57,9 @@ class _ModifyPostFormState extends State<ModifyPostForm> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<PostDetailBloc, PostDetailState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state.status == PostDetailStatus.success) {
+          await Future.delayed(const Duration(seconds: 1));
           HomePageScreen.navigateTo(context);
         }
       },
@@ -76,20 +77,21 @@ class _ModifyPostFormState extends State<ModifyPostForm> {
                   decoration: const InputDecoration(labelText: 'Description'),
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => _updatePost(context),
-                      child: const Icon(Icons.save, color: Colors.black),
-                    ),
-                    ElevatedButton(
-                      onPressed: state.status == PostDetailStatus.loading ? null : () => _deletePost(context),
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                      child: const Icon(Icons.delete, color: Colors.black),
-                    ),
-                  ],
-                ),
+                if (!_buttonPressed)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => _updatePost(context),
+                        child: const Icon(Icons.save, color: Colors.black),
+                      ),
+                      ElevatedButton(
+                        onPressed: state.status == PostDetailStatus.loading ? null : () => _deletePost(context),
+                        style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                        child: const Icon(Icons.delete, color: Colors.black),
+                      ),
+                    ],
+                  ),
                 if (_buttonPressed)
                   switch (state.status) {
                     PostDetailStatus.loading => const Padding(

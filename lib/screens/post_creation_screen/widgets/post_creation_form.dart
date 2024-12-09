@@ -45,8 +45,9 @@ class _PostCreationFormState extends State<PostCreationForm> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<PostDetailBloc, PostDetailState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state.status == PostDetailStatus.success) {
+          await Future.delayed(const Duration(seconds: 1));
           HomePageScreen.navigateTo(context);
         }
       },
@@ -79,10 +80,11 @@ class _PostCreationFormState extends State<PostCreationForm> {
                     },
                   ),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: _submitForm,
-                    child: const Text('Submit'),
-                  ),
+                  if (!_buttonPressed)
+                    ElevatedButton(
+                      onPressed: _submitForm,
+                      child: const Text('Submit'),
+                    ),
                   if (_buttonPressed)
                     switch (state.status) {
                       PostDetailStatus.loading => const Padding(
