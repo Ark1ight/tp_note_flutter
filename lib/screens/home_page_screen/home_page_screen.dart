@@ -43,7 +43,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             'Milky Way',
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: const Color(0xFF12131C),
+          backgroundColor: const Color(0xFF31304D),
         ),
         body: BlocBuilder<PostsBloc, PostsState>(
           builder: (context, state) {

@@ -44,64 +44,97 @@ class _PostCreationFormState extends State<PostCreationForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<PostDetailBloc, PostDetailState>(
-      listener: (context, state) async {
-        if (state.status == PostDetailStatus.success) {
-          await Future.delayed(const Duration(seconds: 1));
-          HomePageScreen.navigateTo(context);
-        }
-      },
-      child: BlocBuilder<PostDetailBloc, PostDetailState>(
-        builder: (context, state) {
-          return Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: _titleController,
-                    decoration: const InputDecoration(labelText: 'Title'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter the title of your thought';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _descriptionController,
-                    decoration: const InputDecoration(labelText: 'Description'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a description of your thought';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  if (!_buttonPressed)
-                    ElevatedButton(
-                      onPressed: _submitForm,
-                      child: const Text('Submit'),
-                    ),
-                  if (_buttonPressed)
-                    switch (state.status) {
-                      PostDetailStatus.loading => const Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: CircularProgressIndicator(),
-                      ),
-                      PostDetailStatus.success => const Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Icon(Icons.check, color: Colors.green),
-                      ),
-                      _ => const SizedBox.shrink(),
-                    },
-                ],
-              ),
-            ),
-          );
+    return Scaffold(
+      backgroundColor: const Color(0xFF12131C),
+      body: BlocListener<PostDetailBloc, PostDetailState>(
+        listener: (context, state) async {
+          if (state.status == PostDetailStatus.success) {
+            await Future.delayed(const Duration(seconds: 1));
+            HomePageScreen.navigateTo(context);
+          }
         },
+        child: BlocBuilder<PostDetailBloc, PostDetailState>(
+          builder: (context, state) {
+            return Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                margin: const EdgeInsets.symmetric(vertical: 8.0),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF31304D),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextFormField(
+                          controller: _titleController,
+                          decoration: const InputDecoration(
+                            labelText: 'Title',
+                            labelStyle: TextStyle(color: Color(0xFFB6BBC4)),
+                          ),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24.0,
+                            color: Color(0xFFB6BBC4),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter the title of your thought';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 8.0),
+                        TextFormField(
+                          controller: _descriptionController,
+                          decoration: const InputDecoration(
+                            labelText: 'Description',
+                            labelStyle: TextStyle(color: Colors.grey),
+                          ),
+                          style: const TextStyle(
+                            fontSize: 20.0,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.white,
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a description of your thought';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        if (!_buttonPressed)
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: _submitForm,
+                              child: const Text('Submit'),
+                            ),
+                          ),
+                        if (_buttonPressed)
+                          switch (state.status) {
+                            PostDetailStatus.loading => const Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Center(child: CircularProgressIndicator()),
+                            ),
+                            PostDetailStatus.success => const Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Center(child: Icon(Icons.check, color: Colors.green)),
+                            ),
+                            _ => const SizedBox.shrink(),
+                          },
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

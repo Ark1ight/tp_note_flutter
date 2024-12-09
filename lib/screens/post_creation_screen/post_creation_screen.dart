@@ -12,8 +12,10 @@ class PostCreationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF12131C),
       appBar: AppBar(
-        title: const Text('Thoughts creation page'),
+        title: const Text('Thoughts creation page', style: TextStyle(color: Colors.white),),
+        backgroundColor: const Color(0xFF31304D),
       ),
       body: const PostCreationForm(),
     );

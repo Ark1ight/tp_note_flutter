@@ -12,6 +12,6 @@ class ModifyPostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    return IconButton(onPressed: () {ModifyPostScreen.navigateTo(context,post);}, icon: const Icon(Icons.edit));
+    return IconButton(onPressed: () {ModifyPostScreen.navigateTo(context,post);}, icon: const Icon(Icons.edit, color: Colors.white,));
   }
 }

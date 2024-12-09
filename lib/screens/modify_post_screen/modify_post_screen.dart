@@ -22,7 +22,7 @@ class _ModifyPostScreenState extends State<ModifyPostScreen> {
       backgroundColor: const Color(0xFF12131C),
       appBar: AppBar(
         title: const Text('Modify Post', style: TextStyle(color: Colors.white),),
-        backgroundColor: const Color(0xFF12131C),
+        backgroundColor: const Color(0xFF31304D),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

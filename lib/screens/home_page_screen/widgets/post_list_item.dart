@@ -23,25 +23,41 @@ class PostListItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                post.title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24.0,
-                  color: Color(0xFFB6BBC4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ModifyPostItem(post: post),
+                ],
+              ),
+              Center(
+                child: Column(
+                  children: [
+                    const Icon(
+                      Icons.grade_outlined,
+                      size: 100,
+                      color: Color(0xFFFFEA0C),
+                    ),
+                    const SizedBox(height: 8.0),
+                    Text(
+                      post.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24.0,
+                        color: Color(0xFFB6BBC4),
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
+                    Text(
+                      post.description,
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 8.0),
-              Text(
-                post.description,
-                style: const TextStyle(
-                  fontSize: 20.0,
-                  fontStyle: FontStyle.italic,
-                  color: Colors.grey,
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              ModifyPostItem(post: post),
             ],
           ),
         ),
