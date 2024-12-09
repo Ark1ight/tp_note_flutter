@@ -56,58 +56,90 @@ class _ModifyPostFormState extends State<ModifyPostForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<PostDetailBloc, PostDetailState>(
-      listener: (context, state) async {
-        if (state.status == PostDetailStatus.success) {
-          await Future.delayed(const Duration(seconds: 1));
-          HomePageScreen.navigateTo(context);
-        }
-      },
-      child: BlocBuilder<PostDetailBloc, PostDetailState>(
-        builder: (context, state) {
-          return Form(
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: _titleController,
-                  decoration: const InputDecoration(labelText: 'Title'),
+    return Scaffold(
+      backgroundColor: const Color(0xFF12131C),
+      body: BlocListener<PostDetailBloc, PostDetailState>(
+        listener: (context, state) async {
+          if (state.status == PostDetailStatus.success) {
+            await Future.delayed(const Duration(seconds: 1));
+            HomePageScreen.navigateTo(context);
+          }
+        },
+        child: BlocBuilder<PostDetailBloc, PostDetailState>(
+          builder: (context, state) {
+            return Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                margin: const EdgeInsets.symmetric(vertical: 8.0),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF31304D),
+                  borderRadius: BorderRadius.circular(15.0),
                 ),
-                TextFormField(
-                  controller: _descriptionController,
-                  decoration: const InputDecoration(labelText: 'Description'),
-                ),
-                const SizedBox(height: 20),
-                if (!_buttonPressed)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ElevatedButton(
-                        onPressed: () => _updatePost(context),
-                        child: const Icon(Icons.save, color: Colors.black),
+                      TextFormField(
+                        controller: _titleController,
+                        decoration: const InputDecoration(
+                          labelText: 'Title',
+                          labelStyle: TextStyle(color: Color(0xFFB6BBC4)),
+                        ),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24.0,
+                          color: Color(0xFFB6BBC4),
+                        ),
                       ),
-                      ElevatedButton(
-                        onPressed: state.status == PostDetailStatus.loading ? null : () => _deletePost(context),
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                        child: const Icon(Icons.delete, color: Colors.black),
+                      const SizedBox(height: 8.0),
+                      TextFormField(
+                        controller: _descriptionController,
+                        decoration: const InputDecoration(
+                          labelText: 'Description',
+                          labelStyle: TextStyle(color: Colors.grey),
+                        ),
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.white,
+                        ),
                       ),
+                      const SizedBox(height: 20),
+                      if (!_buttonPressed)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () => _updatePost(context),
+                              child: const Icon(Icons.save, color: Colors.black),
+                            ),
+                            ElevatedButton(
+                              onPressed: state.status == PostDetailStatus.loading ? null : () => _deletePost(context),
+                              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                              child: const Icon(Icons.delete, color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      if (_buttonPressed)
+                        switch (state.status) {
+                          PostDetailStatus.loading => const Padding(
+                            padding: EdgeInsets.only(top: 20),
+                            child: Center(child: CircularProgressIndicator()),
+                          ),
+                          PostDetailStatus.success => const Padding(
+                            padding: EdgeInsets.only(top: 20),
+                            child: Center(child: Icon(Icons.check, color: Colors.green),),
+                          ),
+                          _ => const SizedBox.shrink(),
+                        },
                     ],
                   ),
-                if (_buttonPressed)
-                  switch (state.status) {
-                    PostDetailStatus.loading => const Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: CircularProgressIndicator(),
-                    ),
-                    PostDetailStatus.success => const Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Icon(Icons.check, color: Colors.green),
-                    ),
-                    _ => const SizedBox.shrink(),
-                  },
-              ],
-            ),
-          );
-        },
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
