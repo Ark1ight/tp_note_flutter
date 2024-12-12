@@ -4,7 +4,10 @@ import 'widgets/modify_post_form.dart';
 
 class ModifyPostScreen extends StatefulWidget {
   static Future<void> navigateTo(BuildContext context, Post post) {
-    return Navigator.pushNamed(context, '/modify_post', arguments: post);
+    return Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => ModifyPostScreen(post: post)),
+          (route) => false,
+    );
   }
 
   final Post post;

@@ -10,7 +10,10 @@ import '../../models/post.dart';
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
   static Future<void> navigateTo(BuildContext context) {
-    return Navigator.pushNamed(context, '/home');
+    return Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const HomePageScreen()),
+          (route) => false,
+    );
   }
 
   @override

@@ -70,6 +70,22 @@ class _PostCreationFormState extends State<PostCreationForm> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        if (!_buttonPressed)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.arrow_back, color: Colors.white, size: 35,),
+                                  onPressed: () {
+                                    HomePageScreen.navigateTo(context);
+                                  },
+                                ),
+                                const Text("Go back", style: TextStyle(color: Colors.white, fontSize: 20),),
+                              ],
+                            ),
+                          ),
                         TextFormField(
                           controller: _titleController,
                           decoration: const InputDecoration(
@@ -124,18 +140,19 @@ class _PostCreationFormState extends State<PostCreationForm> {
                             PostDetailStatus.success => const Padding(
                               padding: EdgeInsets.only(top: 20),
                               child: Center(child: Icon(Icons.check, color: Colors.green)),
-                            ),PostDetailStatus.error => const Padding(
-                            padding: EdgeInsets.only(top: 20),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Error while creating data, try again"),
-                                  Icon(Icons.error, color: Colors.red),
-                                ],
+                            ),
+                            PostDetailStatus.error => const Padding(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("Error while creating data, try again"),
+                                    Icon(Icons.error, color: Colors.red),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
                             _ => const SizedBox.shrink(),
                           },
                       ],

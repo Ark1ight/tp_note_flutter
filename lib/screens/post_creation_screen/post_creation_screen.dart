@@ -7,7 +7,10 @@ class PostCreationScreen extends StatelessWidget {
 
 
   static Future<void> navigateTo(BuildContext context) {
-    return Navigator.pushNamed(context, '/postCreation');
+    return Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const PostCreationScreen()),
+          (route) => false,
+    );
   }
   @override
   Widget build(BuildContext context) {
