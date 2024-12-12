@@ -124,7 +124,18 @@ class _PostCreationFormState extends State<PostCreationForm> {
                             PostDetailStatus.success => const Padding(
                               padding: EdgeInsets.only(top: 20),
                               child: Center(child: Icon(Icons.check, color: Colors.green)),
+                            ),PostDetailStatus.error => const Padding(
+                            padding: EdgeInsets.only(top: 20),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Error while creating data, try again"),
+                                  Icon(Icons.error, color: Colors.red),
+                                ],
+                              ),
                             ),
+                          ),
                             _ => const SizedBox.shrink(),
                           },
                       ],
