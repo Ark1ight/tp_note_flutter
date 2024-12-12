@@ -21,7 +21,8 @@ class _ModifyPostScreenState extends State<ModifyPostScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF12131C),
       appBar: AppBar(
-        title: const Text('Modify Post', style: TextStyle(color: Colors.white),),
+        automaticallyImplyLeading: false,
+        title: const Text('Thought modifying page', style: TextStyle(color: Colors.white),),
         backgroundColor: const Color(0xFF31304D),
       ),
       body: Padding(

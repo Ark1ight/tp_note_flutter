@@ -39,6 +39,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       child: Scaffold(
         backgroundColor: const Color(0xFF12131C),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text(
             'Milky Way',
             style: TextStyle(color: Colors.white),

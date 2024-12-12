@@ -14,6 +14,7 @@ class PostCreationScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFF12131C),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Thoughts creation page', style: TextStyle(color: Colors.white),),
         backgroundColor: const Color(0xFF31304D),
       ),
